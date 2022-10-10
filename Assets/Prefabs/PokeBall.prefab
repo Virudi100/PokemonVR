@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreMe: 0
-  instantPull: 1
+  instantPull: 0
   grabType: 0
   archMultiplier: 0.6
   gravitationVelocity: 1
