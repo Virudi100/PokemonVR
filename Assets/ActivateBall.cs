@@ -5,8 +5,10 @@ using UnityEngine;
 public class ActivateBall : MonoBehaviour
 {
     private Animator animator;
-    int i = 0;
+    private int i = 0;
     private bool isOpen;
+    [SerializeField] private GameObject insidePkmPrefab;
+    private GameObject pkmOut;
 
     private void Start()
     {
@@ -47,6 +49,7 @@ public class ActivateBall : MonoBehaviour
             animator.SetBool("IsOpen", false);
             animator.SetBool("IsActivated", false);
             isOpen = false;
+            Destroy(pkmOut);        //a test
         }
     }
 
@@ -59,6 +62,8 @@ public class ActivateBall : MonoBehaviour
             gameObject.transform.localEulerAngles = new Vector3(-90f,90,transform.localEulerAngles.z);
             animator.SetBool("IsOpen", true);
             isOpen = true;
+
+            pkmOut = Instantiate(insidePkmPrefab, transform.position, Quaternion.identity);     //a test
 
             //Play FX, Instantiate Pokemon
 
