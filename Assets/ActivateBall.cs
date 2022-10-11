@@ -9,6 +9,7 @@ public class ActivateBall : MonoBehaviour
     private bool isOpen;
     [SerializeField] private GameObject insidePkmPrefab;
     private GameObject pkmOut;
+    private bool pkmIsOut = false;
 
     private void Start()
     {
@@ -49,24 +50,27 @@ public class ActivateBall : MonoBehaviour
             animator.SetBool("IsOpen", false);
             animator.SetBool("IsActivated", false);
             isOpen = false;
-            Destroy(pkmOut);        //a test
+            Destroy(pkmOut);
+            pkmIsOut = false;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") && animator.GetBool("IsActivated") == true)
         {
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             gameObject.transform.localEulerAngles = new Vector3(-90f,90,transform.localEulerAngles.z);
             animator.SetBool("IsOpen", true);
             isOpen = true;
-
-            pkmOut = Instantiate(insidePkmPrefab, transform.position, Quaternion.identity);     //a test
-
+        }
+        if(animator.GetBool("IsOpen") == true && pkmIsOut == false)
+        {
             //Play FX, Instantiate Pokemon
 
+            pkmIsOut = true;
+            pkmOut = Instantiate(insidePkmPrefab, transform.position, Quaternion.identity);
         }
     }
 }
